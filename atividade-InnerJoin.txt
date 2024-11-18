@@ -1,0 +1,59 @@
+__________________________________ATIVIDADE SIMPLES_________________
+-- Recuperando só os que tem
+select
+    u.name,
+    max(c.data_compra) as ultima_compra
+from
+    usuario u left join compra c
+on
+    u.id_usuario = c.fk_id_usuario
+where
+    c.data_compra is not null
+group by
+    u.name;
+
+-- Recuperando todos
+select
+    u.name,
+    max(c.data_compra) as ultima_compra
+from
+    usuario u left join compra c
+on
+    u.id_usuario = c.fk_id_usuario
+group by
+    u.name;
+__________________________________ATIVIDADE SIMPLES_________________
+-- ATIVIDADE 1
+select
+    e.nome as nome_evento,
+    e.local,
+    o.nome as nome_organizador,
+    e.data_hora as dia_hora
+from
+    evento e inner join organizador o
+on
+    e.fk_id_organizador = o.id_organizador
+where
+    e.data_hora >= '2024-11-13';
+
+-- ATIVIDADE 2
+select
+    ic.quantidade,
+    i.tipo as nome_ingresso,
+    e.nome as nome_evento,
+    c.data_compra
+from 
+    compra c inner join ingresso_compra ic
+on
+    c.id_compra = ic.fk_id_compra
+inner join 
+    ingresso i
+on
+    ic.fk_id_ingresso = i.id_ingresso
+inner join
+    evento e
+on
+    i.fk_id_evento = e.id_evento
+where year(c.data_compra) = 2024;
+
+    
