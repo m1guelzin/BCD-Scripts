@@ -1,0 +1,27 @@
+select * from usuario
+into outfile 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/backup_usuarios.csv'
+fields terminated by ','
+enclosed by '"'
+lines terminated by '\r\n';
+
+
+'C:\Users\Alunods\Documents\dumps\backup_usuarios.csv'
+
+select id_usuario, name, email
+from usuario
+where email like '%example.com'
+into outfile 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/backup_email.csv'
+fields terminated by ','
+enclosed by '"'
+lines terminated by '\r\n';
+
+select u.id_usuario, u.name, u.email, c.data_compra, i.tipo
+from usuario u
+join compra c ON u.id_usuario = c.fk_id_usuario
+join ingresso_compra ic on c.id_compra = ic.fk_id_compra
+join ingresso i on ic.fk_id_ingresso = i.id_ingresso
+where i.tipo = 'vip'
+into outfile 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/usuarios_compraram_ingresso_vip.csv'
+fields terminated by ','
+enclosed by '"'
+lines terminated by '\r\n';
